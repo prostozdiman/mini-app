@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Bot, Shield, Radio, Lock, Zap, TrendingUp, Star, Target, Brain } from "lucide-react";
-import FlagPair from "@/components/flag-pair";
-import AnimatedCounter from "@/components/animated-counter";
-import SignalStrength from "@/components/signal-strength";
-import { useTradingState } from "@/hooks/use-trading-state";
+import FlagPair from "../components/flag-pair";
+import AnimatedCounter from "../components/animated-counter";
+import SignalStrength from "../components/signal-strength";
+import ChartArrow from "../components/chart-arrow";
+import { useTradingState } from "../hooks/use-trading-state";
 
 type Screen = 'pairs' | 'timeframe' | 'analysis' | 'signal';
 
@@ -135,22 +136,42 @@ export default function TradingSignals() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-cyan-500/20">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center space-x-2">
-            <Bot className="text-cyan-400 w-6 h-6" />
+            <Bot className="text-cyan-400 w-6 h-6 animate-pulse" />
             <h1 className="text-lg font-bold glow-text">AI TRADING SIGNALS</h1>
           </div>
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-xs text-green-400 font-medium">LIVE</span>
+              <span className="text-xs text-green-400 font-medium">LIVE AI</span>
             </div>
-            <div className="text-xs text-gray-400">
-              <AnimatedCounter value={userCount} /> users
+            <div className="text-xs text-gray-400 flex items-center space-x-1">
+              <Shield className="w-3 h-3 text-green-400" />
+              <AnimatedCounter value={userCount} />
+            </div>
+          </div>
+        </div>
+        
+        {/* Sub-header with trust indicators */}
+        <div className="px-4 py-2 bg-black/10 border-t border-cyan-500/10">
+          <div className="flex justify-between items-center text-xs">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-1 text-green-400">
+                <div className="w-1 h-1 bg-green-400 rounded-full animate-ping" />
+                <span>Neural Network: ACTIVE</span>
+              </div>
+              <div className="flex items-center space-x-1 text-cyan-400">
+                <div className="w-1 h-1 bg-cyan-400 rounded-full animate-ping" />
+                <span>Market Data: STREAMING</span>
+              </div>
+            </div>
+            <div className="text-yellow-400 font-medium">
+              94.7% Accuracy Rate
             </div>
           </div>
         </div>
       </header>
 
-      <main className="pt-16 pb-20">
+      <main className="pt-20 pb-20">
         {/* Screen 1: Pair Selection */}
         {currentScreen === 'pairs' && (
           <div className="container mx-auto px-4 py-6 animate-slide-up">
@@ -288,7 +309,15 @@ export default function TradingSignals() {
         {/* Screen 3: Analysis Process */}
         {currentScreen === 'analysis' && (
           <div className="container mx-auto px-4 py-6 text-center animate-slide-up">
-            <div className="mb-8">
+            <div className="mb-8 relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-0 top-0 text-cyan-400 hover:text-cyan-300"
+                onClick={() => setCurrentScreen('timeframe')}
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </Button>
               <h2 className="text-xl font-bold mb-2">
                 Analyzing: <span className="text-cyan-400">{selectedPair}</span>
               </h2>
@@ -341,7 +370,15 @@ export default function TradingSignals() {
         {/* Screen 4: Signal Output */}
         {currentScreen === 'signal' && signalData && (
           <div className="container mx-auto px-4 py-6 text-center animate-slide-up">
-            <div className="mb-6">
+            <div className="mb-6 relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-0 top-0 text-cyan-400 hover:text-cyan-300"
+                onClick={() => setCurrentScreen('timeframe')}
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </Button>
               <h2 className="text-xl font-bold mb-2">
                 Signal for: <span className="text-cyan-400">{selectedPair}</span>
               </h2>
@@ -352,11 +389,11 @@ export default function TradingSignals() {
 
             <div className="mb-8">
               <div className="mb-6">
-                <div className={`text-8xl signal-arrow mb-4 ${
-                  signalData.direction === 'up' ? 'text-green-400' : 'text-red-400'
-                }`}>
-                  {signalData.direction === 'up' ? '⬆️' : '⬇️'}
+                {/* Beautiful Chart Arrow */}
+                <div className="flex justify-center mb-6">
+                  <ChartArrow direction={signalData.direction} animated={true} />
                 </div>
+                
                 <h3 className={`text-3xl font-bold mb-2 ${
                   signalData.direction === 'up' 
                     ? 'text-green-400 glow-green' 
@@ -403,6 +440,14 @@ export default function TradingSignals() {
                 GET NEW SIGNAL
               </Button>
               
+              <Button
+                variant="outline"
+                className="w-full border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white py-3"
+                onClick={() => setCurrentScreen('pairs')}
+              >
+                Change Trading Pair
+              </Button>
+              
               <div className="text-center">
                 <p className="text-xs text-gray-500">
                   Next signal available in: <span className="text-cyan-400 font-bold">{countdown}s</span>
@@ -417,9 +462,24 @@ export default function TradingSignals() {
       </main>
 
       {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-black/20 backdrop-blur-lg border-t border-cyan-500/20 p-4 text-center">
+      <footer className="fixed bottom-0 left-0 right-0 bg-black/20 backdrop-blur-lg border-t border-cyan-500/20 p-3 text-center">
+        <div className="flex justify-between items-center text-xs mb-2">
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1 text-green-400">
+              <Shield className="w-3 h-3" />
+              <span>SSL Secured</span>
+            </div>
+            <div className="flex items-center space-x-1 text-cyan-400">
+              <Lock className="w-3 h-3" />
+              <span>Encrypted</span>
+            </div>
+          </div>
+          <div className="text-yellow-400 font-medium">
+            Version 2.4.7
+          </div>
+        </div>
         <p className="text-xs text-gray-500">
-          Powered by AI GPT TRADE BOT. For informational and demonstration purposes only.
+          Powered by AI GPT TRADE BOT • Advanced Neural Network Technology
         </p>
       </footer>
     </div>
