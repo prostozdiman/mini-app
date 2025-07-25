@@ -452,19 +452,19 @@ const CURRENCY_PAIRS = [
 ];
 
 const TIMEFRAMES = [
-  { value: '5s', label: '5 SECONDS', description: 'Ultra-fast quantum signals', icon: Zap, color: 'cyan' },
-  { value: '10s', label: '10 SECONDS', description: 'Quick market analysis', icon: TrendingUp, color: 'green' },
-  { value: '15s', label: '15 SECONDS', description: 'Balanced precision signals', icon: Star, color: 'yellow' },
-  { value: '30s', label: '30 SECONDS', description: 'Extended analysis window', icon: Target, color: 'red' }
+  { value: '5s', label: '5 SECONDS', description: 'High-frequency AI signals', icon: Zap, color: 'cyan' },
+  { value: '10s', label: '10 SECONDS', description: 'Rapid market analysis', icon: TrendingUp, color: 'green' },
+  { value: '15s', label: '15 SECONDS', description: 'Enhanced precision mode', icon: Star, color: 'yellow' },
+  { value: '30s', label: '30 SECONDS', description: 'Deep learning analysis', icon: Target, color: 'red' }
 ];
 
 const ANALYSIS_MESSAGES = [
-  'Connecting to quantum servers...',
-  'Analyzing 15,000+ data points...',
-  'Scanning market volatility patterns...',
-  'Neural network processing...',
+  'Connecting to AI trading servers...',
+  'Processing 15,000+ market data points...',
+  'Analyzing volatility patterns...',
+  'Deep learning algorithms active...',
   'Evaluating trend momentum...',
-  'Calculating probability matrices...',
+  'Computing signal probabilities...',
   'Signal generation complete'
 ];
 
