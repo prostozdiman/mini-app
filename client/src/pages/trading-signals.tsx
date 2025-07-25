@@ -620,7 +620,7 @@ export default function TradingSignals() {
               </div>
             </div>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-4 mb-8 pairs-container">
               {/* Popular pairs always shown */}
               {CURRENCY_PAIRS.filter(pair => pair.popular).map((currency) => (
                 <Card
@@ -628,7 +628,10 @@ export default function TradingSignals() {
                   className={`trading-card p-4 cursor-pointer transition-all ${
                     selectedPair === currency.pair ? 'selected' : ''
                   }`}
-                  onClick={() => setSelectedPair(currency.pair)}
+                  onClick={() => {
+                    setSelectedPair(currency.pair);
+                    setTimeout(() => setCurrentScreen('timeframe'), 100);
+                  }}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
@@ -664,10 +667,10 @@ export default function TradingSignals() {
               ))}
               
               {/* Additional pairs with slide-up animation */}
-              <div className={`transition-all duration-500 overflow-hidden ${
-                showAllPairs ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+              <div className={`transition-all duration-500 overflow-visible ${
+                showAllPairs ? 'max-h-none opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
               }`}>
-                <div className="space-y-4 animate-slide-up">
+                <div className="space-y-4">
                   {CURRENCY_PAIRS.filter(pair => !pair.popular).map((currency, index) => (
                     <Card
                       key={currency.pair}
@@ -675,10 +678,15 @@ export default function TradingSignals() {
                         selectedPair === currency.pair ? 'selected' : ''
                       }`}
                       style={{ 
-                        animationDelay: `${index * 0.05}s`,
-                        transform: showAllPairs ? 'translateY(0)' : 'translateY(20px)'
+                        animationDelay: showAllPairs ? `${index * 0.05}s` : '0s',
+                        transform: showAllPairs ? 'translateY(0)' : 'translateY(20px)',
+                        opacity: showAllPairs ? 1 : 0,
+                        transitionDelay: showAllPairs ? `${index * 0.05}s` : '0s'
                       }}
-                      onClick={() => setSelectedPair(currency.pair)}
+                      onClick={() => {
+                        setSelectedPair(currency.pair);
+                        setTimeout(() => setCurrentScreen('timeframe'), 100);
+                      }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
@@ -732,16 +740,12 @@ export default function TradingSignals() {
             </div>
 
             <div className="text-center">
-              <p className="text-xs text-gray-500 mb-4">
+              <p className="text-xs text-gray-500">
                 Currently analyzing: <span className="text-cyan-400">{currentAnalyzing}</span>
               </p>
-              <Button
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-4 px-6 h-auto"
-                disabled={!selectedPair}
-                onClick={() => setCurrentScreen('timeframe')}
-              >
-                SELECT TIME FRAME
-              </Button>
+              <p className="text-xs text-green-400 mt-2">
+                Select a currency pair above to continue
+              </p>
             </div>
           </div>
         )}
@@ -771,7 +775,10 @@ export default function TradingSignals() {
                     className={`trading-card p-6 cursor-pointer text-center transition-all ${
                       selectedTimeframe === timeframe.value ? 'selected' : ''
                     }`}
-                    onClick={() => setSelectedTimeframe(timeframe.value)}
+                    onClick={() => {
+                      setSelectedTimeframe(timeframe.value);
+                      setTimeout(() => startAnalysis(), 200);
+                    }}
                   >
                     <div className="mb-4">
                       <Icon className={`w-8 h-8 mx-auto text-${timeframe.color}-400`} />
@@ -787,13 +794,12 @@ export default function TradingSignals() {
             </div>
 
             <div className="text-center">
-              <Button
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 px-6 h-auto"
-                disabled={!selectedTimeframe}
-                onClick={startAnalysis}
-              >
-                GENERATE AI SIGNAL
-              </Button>
+              <p className="text-xs text-gray-500">
+                Selected pair: <span className="text-cyan-400">{selectedPair}</span>
+              </p>
+              <p className="text-xs text-green-400 mt-2">
+                Choose timeframe above to generate signal
+              </p>
             </div>
           </div>
         )}
