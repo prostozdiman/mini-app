@@ -11,13 +11,15 @@ import { useTradingState } from "../hooks/use-trading-state";
 type Screen = 'pairs' | 'timeframe' | 'analysis' | 'signal';
 
 const CURRENCY_PAIRS = [
+  // Popular pairs (shown first)
   { 
     pair: 'EUR/USD', 
     name: 'Euro / US Dollar', 
     flags: ['EU', 'US'], 
     change: '+0.24%', 
     positive: true,
-    tags: ['HOT', 'OTC']
+    tags: ['HOT', 'OTC'],
+    popular: true
   },
   { 
     pair: 'GBP/USD', 
@@ -25,7 +27,8 @@ const CURRENCY_PAIRS = [
     flags: ['GB', 'US'], 
     change: '-0.18%', 
     positive: false,
-    tags: ['HOT', 'OTC']
+    tags: ['HOT', 'OTC'],
+    popular: true
   },
   { 
     pair: 'USD/JPY', 
@@ -33,7 +36,8 @@ const CURRENCY_PAIRS = [
     flags: ['US', 'JP'], 
     change: '+0.12%', 
     positive: true,
-    tags: ['OTC']
+    tags: ['OTC'],
+    popular: true
   },
   { 
     pair: 'AUD/USD', 
@@ -41,6 +45,152 @@ const CURRENCY_PAIRS = [
     flags: ['AU', 'US'], 
     change: '-0.08%', 
     positive: false,
+    tags: ['OTC'],
+    popular: true
+  },
+  // Additional pairs (shown when expanded)
+  { 
+    pair: 'AED/CNY', 
+    name: 'UAE Dirham / Chinese Yuan', 
+    flags: ['AE', 'CN'], 
+    change: '+0.05%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'AUD/NZD', 
+    name: 'Australian Dollar / New Zealand Dollar', 
+    flags: ['AU', 'NZ'], 
+    change: '-0.15%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'CAD/CHF', 
+    name: 'Canadian Dollar / Swiss Franc', 
+    flags: ['CA', 'CH'], 
+    change: '+0.18%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'CAD/JPY', 
+    name: 'Canadian Dollar / Japanese Yen', 
+    flags: ['CA', 'JP'], 
+    change: '-0.09%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'CHF/JPY', 
+    name: 'Swiss Franc / Japanese Yen', 
+    flags: ['CH', 'JP'], 
+    change: '+0.22%', 
+    positive: true,
+    tags: ['HOT', 'OTC']
+  },
+  { 
+    pair: 'EUR/JPY', 
+    name: 'Euro / Japanese Yen', 
+    flags: ['EU', 'JP'], 
+    change: '+0.31%', 
+    positive: true,
+    tags: ['HOT', 'OTC']
+  },
+  { 
+    pair: 'EUR/RUB', 
+    name: 'Euro / Russian Ruble', 
+    flags: ['EU', 'RU'], 
+    change: '-0.42%', 
+    positive: false,
+    tags: ['HOT', 'OTC']
+  },
+  { 
+    pair: 'GBP/AUD', 
+    name: 'British Pound / Australian Dollar', 
+    flags: ['GB', 'AU'], 
+    change: '+0.11%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'KES/USD', 
+    name: 'Kenyan Shilling / US Dollar', 
+    flags: ['KE', 'US'], 
+    change: '-0.03%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'UAH/USD', 
+    name: 'Ukrainian Hryvnia / US Dollar', 
+    flags: ['UA', 'US'], 
+    change: '+0.07%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/BDT', 
+    name: 'US Dollar / Bangladeshi Taka', 
+    flags: ['US', 'BD'], 
+    change: '-0.02%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/CHF', 
+    name: 'US Dollar / Swiss Franc', 
+    flags: ['US', 'CH'], 
+    change: '+0.16%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/EGP', 
+    name: 'US Dollar / Egyptian Pound', 
+    flags: ['US', 'EG'], 
+    change: '-0.08%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/INR', 
+    name: 'US Dollar / Indian Rupee', 
+    flags: ['US', 'IN'], 
+    change: '+0.04%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/PHP', 
+    name: 'US Dollar / Philippine Peso', 
+    flags: ['US', 'PH'], 
+    change: '-0.12%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'YER/USD', 
+    name: 'Yemeni Rial / US Dollar', 
+    flags: ['YE', 'US'], 
+    change: '+0.01%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'ZAR/USD', 
+    name: 'South African Rand / US Dollar', 
+    flags: ['ZA', 'US'], 
+    change: '-0.19%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/MXN', 
+    name: 'US Dollar / Mexican Peso', 
+    flags: ['US', 'MX'], 
+    change: '+0.13%', 
+    positive: true,
     tags: ['OTC']
   }
 ];
@@ -68,10 +218,13 @@ export default function TradingSignals() {
   const [selectedTimeframe, setSelectedTimeframe] = useState('');
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [currentMessage, setCurrentMessage] = useState(0);
+  const [showAllPairs, setShowAllPairs] = useState(false);
+  const [nextSignalTimer, setNextSignalTimer] = useState(0);
   const [signalData, setSignalData] = useState<{
     direction: 'up' | 'down';
     confidence: number;
     strength: number;
+    timestamp: number;
   } | null>(null);
 
   const {
@@ -120,8 +273,23 @@ export default function TradingSignals() {
     setSignalData({
       direction: isUp ? 'up' : 'down',
       confidence,
-      strength
+      strength,
+      timestamp: Date.now()
     });
+
+    // Start timer for next signal based on selected timeframe
+    const timeframeSeconds = parseInt(selectedTimeframe.replace('s', ''));
+    setNextSignalTimer(timeframeSeconds);
+    
+    const timer = setInterval(() => {
+      setNextSignalTimer(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
   };
 
   const startAnalysis = () => {
@@ -197,7 +365,8 @@ export default function TradingSignals() {
             </div>
 
             <div className="space-y-4 mb-8">
-              {CURRENCY_PAIRS.map((currency) => (
+              {/* Popular pairs always shown */}
+              {CURRENCY_PAIRS.filter(pair => pair.popular).map((currency) => (
                 <Card
                   key={currency.pair}
                   className={`trading-card p-4 cursor-pointer transition-all ${
@@ -237,6 +406,73 @@ export default function TradingSignals() {
                   </div>
                 </Card>
               ))}
+              
+              {/* Additional pairs with slide-up animation */}
+              <div className={`transition-all duration-500 overflow-hidden ${
+                showAllPairs ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+              }`}>
+                <div className="space-y-4 animate-slide-up">
+                  {CURRENCY_PAIRS.filter(pair => !pair.popular).map((currency, index) => (
+                    <Card
+                      key={currency.pair}
+                      className={`trading-card p-4 cursor-pointer transition-all ${
+                        selectedPair === currency.pair ? 'selected' : ''
+                      }`}
+                      style={{ 
+                        animationDelay: `${index * 0.05}s`,
+                        transform: showAllPairs ? 'translateY(0)' : 'translateY(20px)'
+                      }}
+                      onClick={() => setSelectedPair(currency.pair)}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <FlagPair flags={currency.flags} />
+                          <div>
+                            <h3 className="font-bold text-lg">{currency.pair}</h3>
+                            <p className="text-gray-400 text-sm">{currency.name}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="flex items-center space-x-2">
+                            {currency.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className={`px-2 py-1 rounded text-xs font-medium ${
+                                  tag === 'HOT'
+                                    ? 'bg-red-500/20 text-red-400'
+                                    : 'bg-cyan-500/20 text-cyan-400'
+                                }`}
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          <p className={`text-sm mt-1 ${
+                            currency.positive ? 'text-green-400' : 'text-red-400'
+                          }`}>
+                            {currency.change}
+                          </p>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Show More / Show Less Button */}
+              <Card 
+                className="trading-card p-4 cursor-pointer text-center border-dashed hover:border-solid"
+                onClick={() => setShowAllPairs(!showAllPairs)}
+              >
+                <div className="flex items-center justify-center space-x-2 text-cyan-400 hover:text-cyan-300">
+                  <span className="font-medium">
+                    {showAllPairs ? 'Show Less' : `Show More (+${CURRENCY_PAIRS.filter(p => !p.popular).length} pairs)`}
+                  </span>
+                  <div className={`transition-transform duration-300 ${showAllPairs ? 'rotate-180' : ''}`}>
+                    ⬇️
+                  </div>
+                </div>
+              </Card>
             </div>
 
             <div className="text-center">
@@ -434,10 +670,15 @@ export default function TradingSignals() {
 
             <div className="space-y-4">
               <Button
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-4 px-6 h-auto"
+                className={`w-full font-bold py-4 px-6 h-auto transition-all ${
+                  nextSignalTimer > 0 
+                    ? 'bg-gray-600 cursor-not-allowed text-gray-400' 
+                    : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white'
+                }`}
+                disabled={nextSignalTimer > 0}
                 onClick={startAnalysis}
               >
-                GET NEW SIGNAL
+                {nextSignalTimer > 0 ? `NEXT SIGNAL IN ${nextSignalTimer}s` : 'GET NEW SIGNAL'}
               </Button>
               
               <Button
@@ -449,10 +690,19 @@ export default function TradingSignals() {
               </Button>
               
               <div className="text-center">
+                <div className="grid grid-cols-2 gap-4 text-xs mb-2">
+                  <div className="bg-black/20 p-2 rounded">
+                    <div className="text-gray-400">Selected Timeframe</div>
+                    <div className="text-cyan-400 font-bold">{selectedTimeframe}</div>
+                  </div>
+                  <div className="bg-black/20 p-2 rounded">
+                    <div className="text-gray-400">Signal Age</div>
+                    <div className="text-green-400 font-bold">
+                      {signalData ? `${Math.floor((Date.now() - signalData.timestamp) / 1000)}s` : '0s'}
+                    </div>
+                  </div>
+                </div>
                 <p className="text-xs text-gray-500">
-                  Next signal available in: <span className="text-cyan-400 font-bold">{countdown}s</span>
-                </p>
-                <p className="text-xs text-gray-500 mt-2">
                   Last update: <span className="text-white">{lastUpdate}</span>
                 </p>
               </div>

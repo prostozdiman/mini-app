@@ -24,7 +24,21 @@ const getFlagColors = (countryCode: string) => {
     'GB': { primary: 'bg-blue-800', secondary: 'bg-red-600', accent: 'bg-white' },
     'JP': { primary: 'bg-white', secondary: 'bg-red-600' },
     'AU': { primary: 'bg-blue-800', secondary: 'bg-white', accent: 'text-white' },
-    'CH': { primary: 'bg-red-600', secondary: 'bg-white' }
+    'CH': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'CA': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'NZ': { primary: 'bg-blue-800', secondary: 'bg-white' },
+    'AE': { primary: 'bg-red-600', secondary: 'bg-green-600' },
+    'CN': { primary: 'bg-red-600', secondary: 'bg-yellow-400' },
+    'RU': { primary: 'bg-blue-600', secondary: 'bg-red-600' },
+    'KE': { primary: 'bg-black', secondary: 'bg-red-600' },
+    'UA': { primary: 'bg-blue-600', secondary: 'bg-yellow-400' },
+    'BD': { primary: 'bg-green-600', secondary: 'bg-red-600' },
+    'EG': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'IN': { primary: 'bg-orange-600', secondary: 'bg-white' },
+    'PH': { primary: 'bg-blue-600', secondary: 'bg-red-600' },
+    'YE': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'ZA': { primary: 'bg-green-600', secondary: 'bg-yellow-400' },
+    'MX': { primary: 'bg-green-600', secondary: 'bg-red-600' }
   };
   
   return colorMap[countryCode] || { primary: 'bg-gray-600', secondary: 'bg-gray-400' };
@@ -93,9 +107,11 @@ export default function FlagPair({ flags }: FlagPairProps) {
             </div>
           )}
           
-          {/* Default fallback */}
+          {/* Default fallback - simple colored rectangle for other countries */}
           {!['EU', 'US', 'GB', 'JP', 'AU'].includes(countryCode) && (
-            <div className={`w-full h-full ${colors.primary}`}></div>
+            <div className={`w-full h-full ${colors.primary} relative`}>
+              <div className={`absolute bottom-0 left-0 right-0 h-1/2 ${colors.secondary}`}></div>
+            </div>
           )}
         </div>
       );
