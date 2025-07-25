@@ -48,7 +48,7 @@ const CURRENCY_PAIRS = [
     tags: ['OTC'],
     popular: true
   },
-  // Additional pairs (shown when expanded)
+  // All pairs from screenshots
   { 
     pair: 'AED/CNY', 
     name: 'UAE Dirham / Chinese Yuan', 
@@ -58,11 +58,43 @@ const CURRENCY_PAIRS = [
     tags: ['OTC']
   },
   { 
+    pair: 'AUD/CAD', 
+    name: 'Australian Dollar / Canadian Dollar', 
+    flags: ['AU', 'CA'], 
+    change: '-0.03%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'AUD/CHF', 
+    name: 'Australian Dollar / Swiss Franc', 
+    flags: ['AU', 'CH'], 
+    change: '+0.18%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'AUD/JPY', 
+    name: 'Australian Dollar / Japanese Yen', 
+    flags: ['AU', 'JP'], 
+    change: '-0.12%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
     pair: 'AUD/NZD', 
     name: 'Australian Dollar / New Zealand Dollar', 
     flags: ['AU', 'NZ'], 
     change: '-0.15%', 
     positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'BHD/CNY', 
+    name: 'Bahraini Dinar / Chinese Yuan', 
+    flags: ['BH', 'CN'], 
+    change: '+0.07%', 
+    positive: true,
     tags: ['OTC']
   },
   { 
@@ -90,12 +122,60 @@ const CURRENCY_PAIRS = [
     tags: ['HOT', 'OTC']
   },
   { 
+    pair: 'EUR/AUD', 
+    name: 'Euro / Australian Dollar', 
+    flags: ['EU', 'AU'], 
+    change: '+0.14%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'EUR/CAD', 
+    name: 'Euro / Canadian Dollar', 
+    flags: ['EU', 'CA'], 
+    change: '-0.08%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'EUR/CHF', 
+    name: 'Euro / Swiss Franc', 
+    flags: ['EU', 'CH'], 
+    change: '+0.11%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'EUR/GBP', 
+    name: 'Euro / British Pound', 
+    flags: ['EU', 'GB'], 
+    change: '-0.06%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'EUR/HUF', 
+    name: 'Euro / Hungarian Forint', 
+    flags: ['EU', 'HU'], 
+    change: '+0.19%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
     pair: 'EUR/JPY', 
     name: 'Euro / Japanese Yen', 
     flags: ['EU', 'JP'], 
     change: '+0.31%', 
     positive: true,
     tags: ['HOT', 'OTC']
+  },
+  { 
+    pair: 'EUR/NZD', 
+    name: 'Euro / New Zealand Dollar', 
+    flags: ['EU', 'NZ'], 
+    change: '-0.04%', 
+    positive: false,
+    tags: ['OTC']
   },
   { 
     pair: 'EUR/RUB', 
@@ -114,10 +194,82 @@ const CURRENCY_PAIRS = [
     tags: ['OTC']
   },
   { 
+    pair: 'GBP/CAD', 
+    name: 'British Pound / Canadian Dollar', 
+    flags: ['GB', 'CA'], 
+    change: '-0.02%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'GBP/CHF', 
+    name: 'British Pound / Swiss Franc', 
+    flags: ['GB', 'CH'], 
+    change: '+0.16%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'GBP/JPY', 
+    name: 'British Pound / Japanese Yen', 
+    flags: ['GB', 'JP'], 
+    change: '+0.28%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'JOD/CNY', 
+    name: 'Jordanian Dinar / Chinese Yuan', 
+    flags: ['JO', 'CN'], 
+    change: '-0.01%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
     pair: 'KES/USD', 
     name: 'Kenyan Shilling / US Dollar', 
     flags: ['KE', 'US'], 
     change: '-0.03%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'LBP/USD', 
+    name: 'Lebanese Pound / US Dollar', 
+    flags: ['LB', 'US'], 
+    change: '+0.02%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'OMR/CNY', 
+    name: 'Omani Rial / Chinese Yuan', 
+    flags: ['OM', 'CN'], 
+    change: '+0.04%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'QAR/CNY', 
+    name: 'Qatari Riyal / Chinese Yuan', 
+    flags: ['QA', 'CN'], 
+    change: '-0.03%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'SAR/CNY', 
+    name: 'Saudi Riyal / Chinese Yuan', 
+    flags: ['SA', 'CN'], 
+    change: '+0.09%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'TND/USD', 
+    name: 'Tunisian Dinar / US Dollar', 
+    flags: ['TN', 'US'], 
+    change: '-0.06%', 
     positive: false,
     tags: ['OTC']
   },
@@ -130,10 +282,34 @@ const CURRENCY_PAIRS = [
     tags: ['OTC']
   },
   { 
+    pair: 'USD/ARS', 
+    name: 'US Dollar / Argentine Peso', 
+    flags: ['US', 'AR'], 
+    change: '+0.31%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
     pair: 'USD/BDT', 
     name: 'US Dollar / Bangladeshi Taka', 
     flags: ['US', 'BD'], 
     change: '-0.02%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/BRL', 
+    name: 'US Dollar / Brazilian Real', 
+    flags: ['US', 'BR'], 
+    change: '+0.15%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/CAD', 
+    name: 'US Dollar / Canadian Dollar', 
+    flags: ['US', 'CA'], 
+    change: '-0.09%', 
     positive: false,
     tags: ['OTC']
   },
@@ -146,11 +322,43 @@ const CURRENCY_PAIRS = [
     tags: ['OTC']
   },
   { 
+    pair: 'USD/CLP', 
+    name: 'US Dollar / Chilean Peso', 
+    flags: ['US', 'CL'], 
+    change: '+0.22%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/COP', 
+    name: 'US Dollar / Colombian Peso', 
+    flags: ['US', 'CO'], 
+    change: '-0.13%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/DZD', 
+    name: 'US Dollar / Algerian Dinar', 
+    flags: ['US', 'DZ'], 
+    change: '+0.03%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
     pair: 'USD/EGP', 
     name: 'US Dollar / Egyptian Pound', 
     flags: ['US', 'EG'], 
     change: '-0.08%', 
     positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/IDR', 
+    name: 'US Dollar / Indonesian Rupiah', 
+    flags: ['US', 'ID'], 
+    change: '+0.07%', 
+    positive: true,
     tags: ['OTC']
   },
   { 
@@ -162,10 +370,66 @@ const CURRENCY_PAIRS = [
     tags: ['OTC']
   },
   { 
+    pair: 'USD/MXN', 
+    name: 'US Dollar / Mexican Peso', 
+    flags: ['US', 'MX'], 
+    change: '+0.13%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/MYR', 
+    name: 'US Dollar / Malaysian Ringgit', 
+    flags: ['US', 'MY'], 
+    change: '-0.05%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
     pair: 'USD/PHP', 
     name: 'US Dollar / Philippine Peso', 
     flags: ['US', 'PH'], 
     change: '-0.12%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/PKR', 
+    name: 'US Dollar / Pakistani Rupee', 
+    flags: ['US', 'PK'], 
+    change: '+0.08%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/RUB', 
+    name: 'US Dollar / Russian Ruble', 
+    flags: ['US', 'RU'], 
+    change: '+0.44%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/SGD', 
+    name: 'US Dollar / Singapore Dollar', 
+    flags: ['US', 'SG'], 
+    change: '-0.07%', 
+    positive: false,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/THB', 
+    name: 'US Dollar / Thai Baht', 
+    flags: ['US', 'TH'], 
+    change: '+0.11%', 
+    positive: true,
+    tags: ['OTC']
+  },
+  { 
+    pair: 'USD/VND', 
+    name: 'US Dollar / Vietnamese Dong', 
+    flags: ['US', 'VN'], 
+    change: '-0.01%', 
     positive: false,
     tags: ['OTC']
   },
@@ -183,14 +447,6 @@ const CURRENCY_PAIRS = [
     flags: ['ZA', 'US'], 
     change: '-0.19%', 
     positive: false,
-    tags: ['OTC']
-  },
-  { 
-    pair: 'USD/MXN', 
-    name: 'US Dollar / Mexican Peso', 
-    flags: ['US', 'MX'], 
-    change: '+0.13%', 
-    positive: true,
     tags: ['OTC']
   }
 ];

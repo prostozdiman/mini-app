@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a full-stack trading signals application built with React/TypeScript frontend and Express.js backend. The application provides a modern trading interface with real-time signals, currency pair analysis, and a cyberpunk-themed UI design. The architecture follows a monorepo structure with shared TypeScript schemas and a PostgreSQL database using Drizzle ORM.
+This is a full-stack trading signals application built with React/TypeScript frontend and Express.js backend. The application provides a modern trading interface with real-time signals, currency pair analysis, and a cyberpunk-themed UI design optimized for mobile devices and server deployment. Features complete trading pair selection (50+ pairs from screenshots), expandable UI with smooth animations, and timer-based signal generation. The architecture follows a monorepo structure with shared TypeScript schemas and optimized for weak mobile devices.
 
 ## User Preferences
 
@@ -38,9 +38,11 @@ Preferred communication style: Simple, everyday language.
 
 ### UI Components
 - **Trading Interface**: Multi-screen flow (pairs → timeframe → analysis → signals)
-- **Real-time Elements**: Animated counters, live user counts, countdown timers
-- **Currency Pairs**: Flag-based pair visualization with country flag emojis
-- **Signal Strength**: Visual indicators with 1-5 strength rating system
+- **Currency Pairs**: 50+ complete trading pairs from screenshots with expandable "Show More" functionality
+- **Real-time Elements**: Animated counters, live user counts, countdown timers, signal age tracking
+- **Signal Restrictions**: Timer-based signal generation preventing spam (5s, 10s, 15s, 30s intervals)
+- **Flag Visualization**: Overlapping flag design with country-specific color schemes for professional appearance
+- **Signal Strength**: Visual indicators with 1-5 strength rating system and pulsing animations
 
 ### Authentication System
 - **User Management**: Basic user schema with username/password authentication
@@ -83,8 +85,15 @@ Preferred communication style: Simple, everyday language.
 
 ### Environment Configuration
 - **Development**: Hot reload with tsx, Vite dev server integration
-- **Production**: Node.js server serving built assets and API endpoints
+- **Production**: Node.js server serving built assets and API endpoints optimized for external hosting
 - **Database**: Environment-based DATABASE_URL configuration
+- **Performance**: Optimized for weak mobile devices with efficient animations and minimal resource usage
+
+### Server Deployment Considerations
+- Application is designed to work seamlessly when deployed to external servers
+- No hardcoded localhost dependencies or development-specific configurations
+- Static assets properly served from build directory
+- All API endpoints use relative paths for production compatibility
 
 ### File Structure Organization
 ```

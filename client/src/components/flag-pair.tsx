@@ -38,7 +38,26 @@ const getFlagColors = (countryCode: string) => {
     'PH': { primary: 'bg-blue-600', secondary: 'bg-red-600' },
     'YE': { primary: 'bg-red-600', secondary: 'bg-white' },
     'ZA': { primary: 'bg-green-600', secondary: 'bg-yellow-400' },
-    'MX': { primary: 'bg-green-600', secondary: 'bg-red-600' }
+    'MX': { primary: 'bg-green-600', secondary: 'bg-red-600' },
+    'BH': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'HU': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'JO': { primary: 'bg-black', secondary: 'bg-red-600' },
+    'LB': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'OM': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'QA': { primary: 'bg-purple-600', secondary: 'bg-white' },
+    'SA': { primary: 'bg-green-600', secondary: 'bg-white' },
+    'TN': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'AR': { primary: 'bg-blue-500', secondary: 'bg-white' },
+    'BR': { primary: 'bg-green-600', secondary: 'bg-yellow-400' },
+    'CL': { primary: 'bg-blue-600', secondary: 'bg-red-600' },
+    'CO': { primary: 'bg-yellow-400', secondary: 'bg-blue-600' },
+    'DZ': { primary: 'bg-green-600', secondary: 'bg-white' },
+    'ID': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'MY': { primary: 'bg-red-600', secondary: 'bg-blue-600' },
+    'PK': { primary: 'bg-green-600', secondary: 'bg-white' },
+    'SG': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'TH': { primary: 'bg-red-600', secondary: 'bg-white' },
+    'VN': { primary: 'bg-red-600', secondary: 'bg-yellow-400' }
   };
   
   return colorMap[countryCode] || { primary: 'bg-gray-600', secondary: 'bg-gray-400' };
