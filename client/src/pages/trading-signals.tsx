@@ -620,8 +620,8 @@ export default function TradingSignals() {
               </div>
             </div>
 
-            <div className="space-y-4 mb-4 pairs-container">
-              {/* Popular pairs always shown */}
+            {/* Popular pairs - always visible, no scroll */}
+            <div className="space-y-4 mb-4">
               {CURRENCY_PAIRS.filter(pair => pair.popular).map((currency) => (
                 <Card
                   key={currency.pair}
@@ -666,78 +666,73 @@ export default function TradingSignals() {
                 </Card>
               ))}
               
-              {/* Additional pairs with slide-up animation */}
-              <div className={`transition-all duration-500 overflow-visible ${
-                showAllPairs ? 'max-h-none opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-              }`}>
-                <div className="space-y-4">
-                  {CURRENCY_PAIRS.filter(pair => !pair.popular).map((currency, index) => (
-                    <Card
-                      key={currency.pair}
-                      className={`trading-card p-4 cursor-pointer transition-all ${
-                        selectedPair === currency.pair ? 'selected' : ''
-                      }`}
-                      style={{ 
-                        animationDelay: showAllPairs ? `${index * 0.05}s` : '0s',
-                        transform: showAllPairs ? 'translateY(0)' : 'translateY(20px)',
-                        opacity: showAllPairs ? 1 : 0,
-                        transitionDelay: showAllPairs ? `${index * 0.05}s` : '0s'
-                      }}
-                      onClick={() => {
-                        setSelectedPair(currency.pair);
-                        setTimeout(() => setCurrentScreen('timeframe'), 100);
-                      }}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <FlagPair flags={currency.flags} />
-                          <div>
-                            <h3 className="font-bold text-lg">{currency.pair}</h3>
-                            <p className="text-gray-400 text-sm">{currency.name}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="flex items-center space-x-2">
-                            {currency.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className={`px-2 py-1 rounded text-xs font-medium ${
-                                  tag === 'HOT'
-                                    ? 'bg-red-500/20 text-red-400'
-                                    : 'bg-cyan-500/20 text-cyan-400'
-                                }`}
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                          <p className={`text-sm mt-1 ${
-                            currency.positive ? 'text-green-400' : 'text-red-400'
-                          }`}>
-                            {currency.change}
-                          </p>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Show More / Show Less Button */}
+              {/* Show More Button - Always visible */}
               <Card 
-                className="trading-card p-4 cursor-pointer text-center border-dashed hover:border-solid"
+                className="trading-card p-3 cursor-pointer text-center border-dashed hover:border-solid bg-gradient-to-r from-cyan-500/10 to-blue-500/10 hover:from-cyan-500/20 hover:to-blue-500/20"
                 onClick={() => setShowAllPairs(!showAllPairs)}
               >
                 <div className="flex items-center justify-center space-x-2 text-cyan-400 hover:text-cyan-300">
-                  <span className="font-medium">
-                    {showAllPairs ? 'Show Less' : `Show More (+${CURRENCY_PAIRS.filter(p => !p.popular).length} pairs)`}
+                  <span className="font-bold text-sm">
+                    {showAllPairs ? '▲ SHOW LESS PAIRS' : `▼ SHOW MORE PAIRS (+${CURRENCY_PAIRS.filter(p => !p.popular).length})`}
                   </span>
-                  <div className={`transition-transform duration-300 ${showAllPairs ? 'rotate-180' : ''}`}>
-                    ⬇️
-                  </div>
                 </div>
               </Card>
             </div>
+
+            {/* Additional pairs with scroll - only when expanded */}
+            {showAllPairs && (
+              <div className="pairs-container space-y-4 mb-4">
+                {CURRENCY_PAIRS.filter(pair => !pair.popular).map((currency, index) => (
+                  <Card
+                    key={currency.pair}
+                    className={`trading-card p-4 cursor-pointer transition-all ${
+                      selectedPair === currency.pair ? 'selected' : ''
+                    }`}
+                    style={{ 
+                      animationDelay: `${index * 0.05}s`,
+                      transform: 'translateY(0)',
+                      opacity: 1,
+                      transitionDelay: `${index * 0.05}s`
+                    }}
+                    onClick={() => {
+                      setSelectedPair(currency.pair);
+                      setTimeout(() => setCurrentScreen('timeframe'), 100);
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <FlagPair flags={currency.flags} />
+                        <div>
+                          <h3 className="font-bold text-lg">{currency.pair}</h3>
+                          <p className="text-gray-400 text-sm">{currency.name}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center space-x-2">
+                          {currency.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className={`px-2 py-1 rounded text-xs font-medium ${
+                                tag === 'HOT'
+                                  ? 'bg-red-500/20 text-red-400'
+                                  : 'bg-cyan-500/20 text-cyan-400'
+                              }`}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <p className={`text-sm mt-1 ${
+                          currency.positive ? 'text-green-400' : 'text-red-400'
+                        }`}>
+                          {currency.change}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            )}
 
             <div className="text-center space-y-3">
               <p className="text-xs text-gray-500">

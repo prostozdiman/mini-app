@@ -235,17 +235,18 @@
     animation: heartbeat 2s ease-in-out infinite;
   }
 
-  /* Smooth scrolling container for pairs */
+  /* Smooth scrolling container for pairs - only when expanded */
   .pairs-container {
-    max-height: 50vh;
+    max-height: 55vh;
     overflow-y: auto;
+    overflow-x: hidden;
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: rgba(34, 211, 238, 0.3) transparent;
   }
 
   .pairs-container::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
   }
 
   .pairs-container::-webkit-scrollbar-track {
@@ -253,11 +254,17 @@
   }
 
   .pairs-container::-webkit-scrollbar-thumb {
-    background: rgba(34, 211, 238, 0.3);
+    background: rgba(34, 211, 238, 0.4);
     border-radius: 2px;
   }
 
   .pairs-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(34, 211, 238, 0.5);
+    background: rgba(34, 211, 238, 0.6);
+  }
+
+  /* Prevent scrolling when pairs are collapsed */
+  .pairs-collapsed {
+    overflow: visible;
+    max-height: none;
   }
 }
