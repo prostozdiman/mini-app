@@ -5,7 +5,7 @@ import { ArrowLeft, Bot, Shield, Radio, Lock, Zap, TrendingUp, Star, Target, Bra
 import FlagPair from "../components/flag-pair";
 import AnimatedCounter from "../components/animated-counter";
 import SignalStrength from "../components/signal-strength";
-import ChartArrow from "../components/chart-arrow";
+import SignalArrow from "../components/signal-arrow";
 import { useTradingState } from "../hooks/use-trading-state";
 
 type Screen = 'pairs' | 'timeframe' | 'analysis' | 'signal';
@@ -137,7 +137,7 @@ export default function TradingSignals() {
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center space-x-2">
             <Bot className="text-cyan-400 w-6 h-6 animate-pulse" />
-            <h1 className="text-lg font-bold glow-text">AI TRADING SIGNALS</h1>
+            <h1 className="text-lg font-bold glow-text">AI GPT TRADE BOT</h1>
           </div>
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
@@ -389,9 +389,9 @@ export default function TradingSignals() {
 
             <div className="mb-8">
               <div className="mb-6">
-                {/* Beautiful Chart Arrow */}
+                {/* Beautiful Signal Arrow */}
                 <div className="flex justify-center mb-6">
-                  <ChartArrow direction={signalData.direction} animated={true} />
+                  <SignalArrow direction={signalData.direction} animated={true} />
                 </div>
                 
                 <h3 className={`text-3xl font-bold mb-2 ${
