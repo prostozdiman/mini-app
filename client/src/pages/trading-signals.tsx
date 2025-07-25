@@ -739,13 +739,51 @@ export default function TradingSignals() {
               </Card>
             </div>
 
-            <div className="text-center">
+            <div className="text-center space-y-4">
               <p className="text-xs text-gray-500">
                 Currently analyzing: <span className="text-cyan-400">{currentAnalyzing}</span>
               </p>
-              <p className="text-xs text-green-400 mt-2">
+              <p className="text-xs text-green-400">
                 Select a currency pair above to continue
               </p>
+              
+              {/* Professional footer text */}
+              <div className="bg-gradient-to-r from-gray-900/50 to-black/50 p-4 rounded-lg border border-gray-700/50 mt-6">
+                <div className="grid grid-cols-2 gap-4 text-xs">
+                  <div className="text-left">
+                    <div className="text-cyan-400 font-bold mb-1">🤖 AI POWERED</div>
+                    <div className="text-gray-400">Advanced neural networks analyze market patterns in real-time</div>
+                  </div>
+                  <div className="text-left">
+                    <div className="text-green-400 font-bold mb-1">⚡ ULTRA FAST</div>
+                    <div className="text-gray-400">Get instant signals with 94.7% accuracy rate</div>
+                  </div>
+                </div>
+                
+                <div className="border-t border-gray-700/50 mt-3 pt-3">
+                  <div className="text-center">
+                    <div className="text-yellow-400 font-bold text-sm mb-1">🎯 PROFESSIONAL TRADING SIGNALS</div>
+                    <div className="text-gray-400 text-xs">
+                      Trusted by 50,000+ traders worldwide • Real-time market analysis • Proven results
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex justify-center items-center space-x-4 mt-3 text-xs">
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-green-400">LIVE ANALYSIS</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                    <span className="text-cyan-400">AI ACTIVE</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                    <span className="text-yellow-400">24/7 TRADING</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
